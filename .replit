@@ -1,0 +1,29 @@
+modules = ["cpp-clang14", "python-3.12"]
+[agent]
+expertMode = true
+
+[nix]
+channel = "stable-25_05"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Run Practice"
+
+[[workflows.workflow]]
+name = "Run Practice"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd 0000_practice && clang++ -o practice practice.cpp && ./practice"
+
+[workflows.workflow.metadata]
+outputType = "console"
