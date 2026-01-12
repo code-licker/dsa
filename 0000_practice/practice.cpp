@@ -2,26 +2,34 @@
 #include <vector>
 using namespace std;
 
-int main() {
-  int num1 = 10;
-  int num2 = 20;
-  cout << num1 << ", " << num2 << endl;
-  cout << sizeof(num1) << ", " << sizeof(num2) << endl;
-  cout << &num1 << ", " << &num2 << endl;
-  cout << "------------------------------" << endl;
+int pa(vector<int> &v, int l, int h) {
+  int piv = v[h];
+  int i = l - 1;
+  for (int j = l; j < h; j++) {
+    if (v[j] > piv) {
+      i++;
+      swap(v[i], v[j]);
+    }
+  }
+  swap(v[i + 1], v[h]);
+  return i + 1;
+}
 
-  int *num3 = new int(10);
-  int *num4 = num3;
-  cout << num3 << ", " << num4 << endl;
-  cout << *num3 << ", " << *num4 << endl;
-  cout << sizeof(num3) << ", " << sizeof(num4) << endl;
-  cout << &num3 << ", " << &num4 << endl;
-  cout << "--------------Pointer modified----------------" << endl;
-  *num3 = 30;
-  cout << num3 << ", " << num4 << endl;
-  cout << *num3 << ", " << *num4 << endl;
-  cout << sizeof(num3) << ", " << sizeof(num4) << endl;
-  cout << &num3 << ", " << &num4 << endl;
-  cout << "------------------------------" << endl;
+vector<int> qsf(vector<int> &v, int l, int h) {
+  if (l < h) {
+    int p = pa(v, l, h);
+    qsf(v, l, p - 1);
+    qsf(v, p + 1, h);
+  }
+  return v;
+}
+
+void qs(vector<int> &v) { qsf(v, 0, v.size() - 1); }
+
+int main() {
+  vector<int> a = {2, 1, 6, 10, 4, 1, 3, 9, 7};
+  qs(a);
+  for (int i = 0; i < a.size(); i++)
+    cout << a[i] << " - ";
   return 0;
 }
