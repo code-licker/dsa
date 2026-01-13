@@ -20,6 +20,7 @@ args = "Run Practice"
 [[workflows.workflow]]
 name = "Run Practice"
 author = "agent"
+mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
